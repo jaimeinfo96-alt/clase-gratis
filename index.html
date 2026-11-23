@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
-<title>Cómo retirar tus primeros $1.000 · Clase en vivo con Jaime</title>
+<title>Clase en vivo: el bot que opera tu cuenta fondeada · Jaime</title>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -46,12 +46,47 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
   .page{position:relative;width:100%;max-width:480px;min-height:100dvh;display:flex;flex-direction:column}
 
   /* ---- hero ---- */
-  .hero{position:relative;width:100%;line-height:0}
-  .hero img{width:100%;display:block}
-  .hero::after{
-    content:'';position:absolute;left:0;right:0;bottom:0;height:90px;
-    background:linear-gradient(to bottom, rgba(0,0,0,0), var(--bg));
+  .hero{
+    --w:min(100vw,480px);
+    position:relative;width:100%;height:calc(var(--w)*1.64);overflow:hidden;line-height:1.1;
+    background:
+      radial-gradient(62% 34% at 50% 50%, rgba(61,155,255,.50), rgba(61,155,255,0) 72%),
+      radial-gradient(80% 36% at 105% 2%, rgba(10,102,194,.40), rgba(10,102,194,0) 65%),
+      linear-gradient(180deg,#081B36 0%,#050D1B 52%,#000 100%);
   }
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;
+    -webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent 92%);mask-image:linear-gradient(to bottom,#000 55%,transparent 92%)}
+  .hero-photo{
+    position:absolute;left:0;bottom:calc(var(--w)*-.05);width:var(--w);height:auto;z-index:2;display:block;
+    filter:drop-shadow(0 0 28px rgba(61,155,255,.35));
+  }
+  .hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:46%;z-index:3;
+    background:linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,.78) 60%,#000)}
+  .hero-title{position:absolute;left:0;right:0;top:calc(var(--w)*.15);padding:0 22px;z-index:4}
+  .hero-pill{
+    display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:20px;
+    background:#0A66C2;color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.16em;font-weight:600;
+  }
+  .hero-pill i{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.4s ease-in-out infinite}
+  .hero-title h1{margin-top:13px;font-size:calc(var(--w)*.077);font-weight:800;letter-spacing:-.02em;line-height:1.04;color:#fff}
+  .hero-title h1 span{color:var(--accent)}
+  .hero-title .sub{margin-top:10px;font-size:calc(var(--w)*.03);font-weight:500;color:rgba(243,246,247,.78);line-height:1.35}
+  .hero-info{position:absolute;left:0;right:0;bottom:0;padding:0 22px 22px;z-index:4}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;padding:9px 10px;border-radius:12px;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    font-size:12.5px;font-weight:600;color:#fff;line-height:1;white-space:nowrap;
+  }
+  .chip svg{width:14px;height:14px;color:var(--accent);flex-shrink:0}
+  .hero-cta{
+    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:15px;border-radius:14px;
+    background:var(--ink);color:#0A0A0F;font-weight:700;font-size:15.5px;text-decoration:none;
+    box-shadow:0 8px 28px -8px rgba(61,155,255,.6);
+  }
+  .hero-note{margin-top:9px;text-align:center;font-size:11.5px;color:rgba(243,246,247,.55)}
 
   /* ---- generic section ---- */
   .section{padding:8px 22px 0}
@@ -164,6 +199,7 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
   /* ---- footer ---- */
   footer{margin-top:34px;padding:26px 22px 40px;text-align:center;border-top:1px solid var(--line)}
   .footer-mark{font-weight:700;font-size:15px;letter-spacing:.02em}
+  footer .risk{margin:14px auto 0;max-width:340px;font-size:11px;line-height:1.5;color:rgba(243,246,247,.4)}
   .footer-tag{
     font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;
     color:var(--muted);margin-top:6px;text-transform:uppercase;
@@ -180,6 +216,59 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
     color:#0A0A0F;font-weight:700;font-size:14.5px;font-family:'Outfit',sans-serif;
   }
 
+
+  /* ---- top bar ---- */
+  .topbar{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;line-height:1}
+  .brand{font-weight:800;letter-spacing:.22em;font-size:13px;color:#fff}
+  .topbar a.mini{
+    font-size:12.5px;font-weight:600;color:#fff;text-decoration:none;padding:8px 14px;border-radius:20px;
+    border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  }
+
+  /* ---- reveal ---- */
+  .rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+
+  /* ---- bot terminal ---- */
+  .bot{margin-top:38px}
+  .bot-sub{margin-top:10px;font-size:14.5px}
+  .terminal{
+    margin-top:18px;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    background:linear-gradient(180deg,#07090D,#050608);box-shadow:0 24px 60px -30px rgba(61,155,255,.35);
+  }
+  .term-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .term-head .live{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--ink);font-weight:600}
+  .term-head .live i{width:7px;height:7px;border-radius:50%;background:#2EE6A0;box-shadow:0 0 8px #2EE6A0;animation:pulse 1.4s ease-in-out infinite}
+  .term-head .live,.term-head .sym{white-space:nowrap}
+  .term-head .sym{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted)}
+  #botChart{display:block;width:100%;height:320px;background:#fff}
+  .term-stats{display:grid;grid-template-columns:.8fr 1.2fr 1fr;border-top:1px solid var(--line)}
+  .term-stats div{padding:12px 14px;border-right:1px solid var(--line)}
+  .term-stats div:last-child{border-right:none}
+  .term-stats small{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .term-stats b{display:block;margin-top:5px;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .term-stats b.st{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;white-space:normal;line-height:1.25}
+  .term-stats b.pos{color:#2EE6A0}
+  .term-stats b.neg{color:#FF6B6B}
+  .term-log{list-style:none;border-top:1px solid var(--line);padding:10px 16px 12px;height:96px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:5px}
+  .term-log li{font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.4;color:var(--muted);animation:logIn .4s ease}
+  .term-log li time{color:rgba(243,246,247,.35);margin-right:8px}
+  .term-log li.ok{color:#2EE6A0}
+  .term-log li.go{color:var(--ink)}
+  @keyframes logIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .disclaimer{margin-top:10px;font-size:11.5px;color:rgba(243,246,247,.42);line-height:1.5}
+
+  .steps{margin-top:26px;display:flex;flex-direction:column;gap:0}
+  .step{display:flex;gap:16px;padding-bottom:22px;position:relative}
+  .step:not(:last-child)::before{content:'';position:absolute;left:15px;top:34px;bottom:2px;width:1px;background:var(--line)}
+  .step .n{
+    flex:0 0 31px;height:31px;border-radius:50%;border:1px solid var(--accent);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:var(--bg);
+  }
+  .step h3{font-size:16px;font-weight:700;color:var(--ink);line-height:1.3;padding-top:4px}
+  .step p{margin-top:4px;font-size:14px}
+
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
   @media (min-width:481px){
     body{align-items:flex-start}
     .page{box-shadow:0 0 60px rgba(0,0,0,.6)}
@@ -191,14 +280,52 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
 
   <!-- HERO -->
   <div class="hero">
-    <img src="assets/hero-jaime.png" alt="Retira tus primeros $1,000 - Clase gratis en vivo con Jaime, martes 20 de octubre, 8:00 PM">
+    <svg class="hero-bg" viewBox="0 0 480 780" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><line x1="0" y1="120" x2="480" y2="120" stroke="rgba(120,170,255,.07)"/><line x1="0" y1="200" x2="480" y2="200" stroke="rgba(120,170,255,.07)"/><line x1="0" y1="280" x2="480" y2="280" stroke="rgba(120,170,255,.07)"/><line x1="0" y1="360" x2="480" y2="360" stroke="rgba(120,170,255,.07)"/><line x1="0" y1="440" x2="480" y2="440" stroke="rgba(120,170,255,.07)"/><line x1="0" y1="520" x2="480" y2="520" stroke="rgba(120,170,255,.07)"/><line x1="0" y1="600" x2="480" y2="600" stroke="rgba(120,170,255,.07)"/><line x1="0" y1="680" x2="480" y2="680" stroke="rgba(120,170,255,.07)"/><line x1="14" y1="439" x2="14" y2="489" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="7" y="448" width="14" height="22" rx="1.5" fill="rgba(61,155,255,.30)"/><line x1="41" y1="387" x2="41" y2="461" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="34" y="404" width="14" height="44" rx="1.5" fill="rgba(61,155,255,.30)"/><line x1="68" y1="343" x2="68" y2="411" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="61" y="359" width="14" height="45" rx="1.5" fill="rgba(61,155,255,.30)"/><line x1="95" y1="339" x2="95" y2="367" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="88" y="346" width="14" height="13" rx="1.5" fill="rgba(61,155,255,.30)"/><line x1="122" y1="310" x2="122" y2="355" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="115" y="333" width="14" height="13" rx="1.5" fill="rgba(61,155,255,.30)"/><line x1="149" y1="284" x2="149" y2="358" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="142" y="302" width="14" height="31" rx="1.5" fill="rgba(61,155,255,.30)"/><line x1="176" y1="288" x2="176" y2="328" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="169" y="302" width="14" height="4" rx="1.5" fill="rgba(61,155,255,.30)"/><line x1="203" y1="233" x2="203" y2="313" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="196" y="256" width="14" height="46" rx="1.5" fill="rgba(61,155,255,.30)"/><line x1="230" y1="242" x2="230" y2="268" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="223" y="250" width="14" height="6" rx="1.5" fill="rgba(61,155,255,.30)"/><line x1="257" y1="240" x2="257" y2="300" stroke="rgba(190,215,255,.14)" stroke-width="1.6"/><rect x="250" y="250" width="14" height="32" rx="1.5" fill="rgba(190,215,255,.14)"/><line x1="284" y1="269" x2="284" y2="316" stroke="rgba(190,215,255,.14)" stroke-width="1.6"/><rect x="277" y="282" width="14" height="17" rx="1.5" fill="rgba(190,215,255,.14)"/><line x1="311" y1="259" x2="311" y2="309" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="304" y="267" width="14" height="33" rx="1.5" fill="rgba(61,155,255,.30)"/><line x1="338" y1="252" x2="338" y2="299" stroke="rgba(190,215,255,.14)" stroke-width="1.6"/><rect x="331" y="267" width="14" height="21" rx="1.5" fill="rgba(190,215,255,.14)"/><line x1="365" y1="272" x2="365" y2="311" stroke="rgba(190,215,255,.14)" stroke-width="1.6"/><rect x="358" y="287" width="14" height="12" rx="1.5" fill="rgba(190,215,255,.14)"/><line x1="392" y1="279" x2="392" y2="341" stroke="rgba(190,215,255,.14)" stroke-width="1.6"/><rect x="385" y="299" width="14" height="30" rx="1.5" fill="rgba(190,215,255,.14)"/><line x1="419" y1="313" x2="419" y2="365" stroke="rgba(190,215,255,.14)" stroke-width="1.6"/><rect x="412" y="330" width="14" height="11" rx="1.5" fill="rgba(190,215,255,.14)"/><line x1="446" y1="329" x2="446" y2="391" stroke="rgba(190,215,255,.14)" stroke-width="1.6"/><rect x="439" y="341" width="14" height="25" rx="1.5" fill="rgba(190,215,255,.14)"/><line x1="473" y1="324" x2="473" y2="387" stroke="rgba(61,155,255,.30)" stroke-width="1.6"/><rect x="466" y="338" width="14" height="28" rx="1.5" fill="rgba(61,155,255,.30)"/></svg>
+    <img class="hero-photo" src="assets/jaime-cutout.webp" alt="Jaime Barbosa sonriendo, apoyando el mentón en la mano">
+    <div class="topbar"><span class="brand">NAKAMI</span><a class="mini" href="#registro">Registrarme</a></div>
+    <div class="hero-title">
+      <span class="hero-pill"><i></i>CLASE EN VIVO · GRATIS</span>
+      <h1>El bot que opera tu cuenta <span>fondeada</span></h1>
+      <p class="sub">Descubre el método 2+2 y el algoritmo que ejecuta por ti</p>
+    </div>
+    <div class="hero-info">
+      <div class="chips">
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>Jueves 26 nov</span>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>8:00 PM Colombia</span>
+      </div>
+      <a class="hero-cta" href="#registro">Reservar mi cupo gratis →</a>
+      <p class="hero-note">Clase 100% en vivo · Sin grabación</p>
+    </div>
   </div>
 
   <!-- INTRO en primera persona -->
   <div class="section intro">
-    <h2>Te muestro cómo llegué a mi primer retiro de $1.000</h2>
-    <p>Soy Jaime. En esta clase, <strong>100% en vivo y totalmente gratis</strong>, abro mis herramientas en pantalla y te muestro, en una sesión real, qué data cuantitativa uso para saber si el mercado tiene condiciones a mi favor antes de abrir el gráfico.</p>
-    <p>Retirar no es suerte ni tiempo en el mercado: es saber cuándo operar y cuándo no tocar nada. Sin teoría vacía.</p>
+    <h2>Retira de tu cuenta fondeada sin estar pegado a la pantalla</h2>
+    <p>Soy Jaime. En esta clase, <strong>100% en vivo y totalmente gratis</strong>, te muestro el sistema completo que uso hoy: el <strong>método 2+2</strong>, que explica la lógica de la estrategia, y el <strong>bot</strong> que ejecuta la operativa por mí.</p>
+    <p>Las entradas, la gestión del riesgo y el momento de salida corren automatizados, dentro de las reglas de las firmas de fondeo. Así dejo de depender de mi estado de ánimo, de mi tiempo frente al gráfico y de decisiones tomadas en caliente.</p>
+  </div>
+
+  <!-- BOT EN ACCIÓN -->
+  <div class="section bot" id="bot">
+    <h2>Así opera el bot</h2>
+    <p class="bot-sub">Entra con la señal, promedia con órdenes límite mientras el precio se extiende y cierra en take profit. Sin que tengas que estar frente al gráfico.</p>
+    <div class="terminal">
+      <div class="term-head"><span class="live"><i></i>BOT ACTIVO</span><span class="sym">MNQ 12-26 · 1M · SIMULACIÓN</span></div>
+      <canvas id="botChart" aria-label="Simulación animada de velas de trading: el bot entra, agrega contratos y cierra en take profit"></canvas>
+      <div class="term-stats">
+        <div><small>Contratos</small><b id="stCon">0</b></div>
+        <div><small>Estado</small><b class="st" id="stState">Buscando señal</b></div>
+        <div><small>P&amp;L</small><b id="stPnl">$0.00</b></div>
+      </div>
+      <ul class="term-log" id="botLog"></ul>
+    </div>
+    <p class="disclaimer">Simulación con fines ilustrativos del funcionamiento. No representa resultados reales ni garantiza resultados futuros.</p>
+
+    <div class="steps">
+      <div class="step"><span class="n">1</span><div><h3>El método 2+2 define el contexto</h3><p>La lógica de la estrategia decide cuándo hay condiciones para operar y cuándo no.</p></div></div>
+      <div class="step"><span class="n">2</span><div><h3>El bot ejecuta y gestiona</h3><p>Agrega contratos con órdenes límite y gestiona el riesgo con reglas fijas.</p></div></div>
+      <div class="step"><span class="n">3</span><div><h3>Cierra sin intervención</h3><p>Sale en take profit o stop según lo programado, sin decisiones emocionales.</p></div></div>
+    </div>
   </div>
 
   <!-- DETALLES DEL EVENTO (estilo terminal) -->
@@ -207,7 +334,7 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
     <div class="event-list">
       <div class="event-row">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
-        <span class="txt">Martes 20 de octubre</span>
+        <span class="txt">Jueves 26 de noviembre</span>
       </div>
       <div class="event-row">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
@@ -225,24 +352,35 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
     <a href="#registro" class="session-cta">Registrarme para la clase →</a>
   </div>
 
+  <!-- PARA QUIÉN ES -->
+  <div class="section" style="margin-top:34px">
+    <h2>Esta clase es para ti si…</h2>
+    <div class="learn">
+      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Quieres una cuenta fondeada pero no puedes estar frente a una pantalla todo el día.</p></div>
+      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Ya hiciste un retiro, pero no sabes cómo repetirlo con consistencia.</p></div>
+      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Has perdido cuentas fondeadas por decisiones emocionales: el mal día, la noticia, la operación de venganza.</p></div>
+      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Ya retiras y quieres escalar sin depender de tus horas frente al gráfico.</p></div>
+    </div>
+  </div>
+
   <!-- QUÉ VAS A APRENDER -->
   <div class="section" style="margin-top:34px">
-    <h2>Esto es lo que te voy a enseñar</h2>
+    <h2>Esto es lo que te voy a mostrar</h2>
     <div class="learn">
-      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Te cuento cómo pasé de cerrar semanas en positivo a lograr un retiro real, y por qué el problema era el método, no la disciplina.</p></div>
-      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Te enseño a leer el régimen de gamma y los niveles de cobertura para saber qué tipo de mercado enfrentas ese día.</p></div>
-      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Te muestro dónde está posicionado el dinero institucional: los muros de opciones y la presión del flujo que no se ve en el gráfico.</p></div>
-      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Te muestro paso a paso cómo uso mis herramientas en una sesión real para distinguir los días a favor de los días en los que es mejor quedarse al margen.</p></div>
+      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>El método 2+2: la base para entender la lógica de la estrategia y por qué se opera como se opera.</p></div>
+      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Cómo funciona el bot: entradas, gestión del riesgo y salida, con reglas fijas y sin margen para el error humano.</p></div>
+      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Cómo opera dentro de las reglas de las principales firmas de fondeo para cuidar la cuenta.</p></div>
+      <div class="learn-item"><span class="check"><svg viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="#F3F6F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Cómo puede correr en una o varias cuentas a la vez mientras tú trabajas en otra cosa.</p></div>
     </div>
   </div>
 
   <!-- CERTIFICADOS -->
   <div class="section certs">
-    <h2>Resultados que respaldan el método</h2>
+    <h2>Resultados reales de mis cuentas fondeadas</h2>
     <div class="certs-viewport" id="certsViewport">
       <div class="certs-track" id="certsTrack">
-        <div class="cert-card"><img src="assets/certs/cert-1.jpg" alt="Certificado de cuenta fondeada - Jaime Andres Barbosa"></div>
-        <div class="cert-card"><img src="assets/certs/cert-2.jpg" alt="Certificado de cuenta fondeada - Jaime Andres Barbosa"></div>
+        <div class="cert-card"><img onerror="this.closest('.certs').style.display='none'" src="assets/certs/cert-1.jpg" alt="Certificado de cuenta fondeada - Jaime Andres Barbosa"></div>
+        <div class="cert-card"><img onerror="this.closest('.certs').style.display='none'" src="assets/certs/cert-2.jpg" alt="Certificado de cuenta fondeada - Jaime Andres Barbosa"></div>
       </div>
     </div>
   </div>
@@ -251,7 +389,7 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
   <div class="section" id="registro" style="margin-top:34px">
     <h2>Reserva tu cupo gratis</h2>
     <div class="form-wrap">
-      <p class="sub">Ingresa tus datos y te comparto el acceso a la clase en vivo.</p>
+      <p class="sub">Ingresa tus datos y te comparto el acceso al grupo privado donde envío el enlace de la clase.</p>
       <form id="regForm">
         <label for="nombre">Nombre completo</label>
         <input id="nombre" name="nombre" type="text" placeholder="Escribe tu nombre completo" required>
@@ -289,7 +427,7 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
 
         <button type="submit" class="cta">Quiero mi cupo gratis →</button>
       </form>
-      <p class="fineprint">100% gratis. Nada de tarjetas, nada de pagos.</p>
+      <p class="fineprint">100% gratis. Nada de tarjetas, nada de pagos para registrarte.</p>
     </div>
   </div>
 
@@ -299,19 +437,23 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
     <div class="faq">
       <div class="faq-item">
         <button class="faq-q">¿Es realmente gratis? <span class="plus">+</span></button>
-        <div class="faq-a"><p>Sí, totalmente. No te voy a pedir tarjeta ni pago en ningún momento.</p></div>
+        <div class="faq-a"><p>Sí. Registrarte y entrar a la clase no cuesta nada. No te pido tarjeta ni pago.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">¿Necesito experiencia previa? <span class="plus">+</span></button>
-        <div class="faq-a"><p>No. Si estás empezando desde cero, también puedes entrar, no importa tu nivel.</p></div>
+        <div class="faq-a"><p>No. Te explico el método 2+2 desde la base. Si ya operas cuentas fondeadas, vas a ver cómo escalar.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">¿Quedará grabada la clase? <span class="plus">+</span></button>
         <div class="faq-a"><p>No. Es 100% en vivo. Si no puedes estar ese día, no vas a poder verla después.</p></div>
       </div>
       <div class="faq-item">
+        <button class="faq-q">¿Voy a ver el bot funcionando? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Sí. Te muestro cómo está construido, qué reglas sigue y cómo se conecta a una cuenta fondeada. Al final te cuento cómo acceder a él.</p></div>
+      </div>
+      <div class="faq-item">
         <button class="faq-q">¿Cómo accedo a la clase? <span class="plus">+</span></button>
-        <div class="faq-a"><p>Después de registrarte te llevo directo al grupo de WhatsApp donde comparto el enlace de Zoom.</p></div>
+        <div class="faq-a"><p>Después de registrarte te llevo al grupo privado donde comparto el enlace para entrar en vivo.</p></div>
       </div>
     </div>
   </div>
@@ -319,6 +461,7 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
   <footer>
     <div class="footer-mark">NAKAMI</div>
     <div class="footer-tag">Trading · Disciplina · Fe</div>
+    <p class="risk">El trading de futuros implica riesgo de pérdida. Los resultados mostrados son de mi experiencia y no garantizan resultados futuros ni iguales para ti.</p>
   </footer>
 
   <div class="sticky-cta" id="stickyCta">
@@ -328,7 +471,8 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
 </div>
 
 <script>
-  const WHATSAPP_LINK = "https://chat.whatsapp.com/C6gNVBKe3HtCDIguWUBHEh";
+  // Destino después del registro: carpeta de Telegram
+  const WHATSAPP_LINK = "https://t.me/addlist/z_fraXO_8MdjZGUx";
   // ⚠️ EDITAR: pega aquí la URL de tu Apps Script (paso a paso explicado en el chat)
   const SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXLBDmxW89jL41GRhYTbxRqhVTsltNSZKIypQSchdIsqFJcavIKcJlg9Wi-DoNkc4/exec";
 
@@ -400,6 +544,222 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
     startAutoplay();
   })();
 
+
+  // ---- Simulación: velas + bot (ilustrativa) ----
+  (function(){
+    const cv=document.getElementById('botChart'); if(!cv) return;
+    const ctx=cv.getContext('2d');
+    const elCon=document.getElementById('stCon'), elState=document.getElementById('stState'),
+          elPnl=document.getElementById('stPnl'), elLog=document.getElementById('botLog');
+    const STEP=620, VIS=19, CYCLE=32, PT=2, QTY=2, GAP=22, TPD=50;
+    const GUP='#33BD4A', RDN='#E5161E', PURP='#B83DFF', CYAN='#1FE3F2', TAN='#D9B88C', BLUE='#2A5BFF', DGRN='#1B9E3C';
+    const DR={9:9,10:14,11:18,12:-3,13:16,14:14,15:-10,16:-14,17:-9,18:-16,19:-12,20:-8,21:-15};
+    let W=0,H=0,dpr=1,rnd=Math.random;
+    let candles=[], base=0, n=0, k=0, cur=null, stepStart=0, clock=34264;
+    let yMin=0,yMax=1,yInit=false, markers=[], tr=null, flash=0, lastKey='';
+    const q=v=>Math.round(v*4)/4, f2=v=>v.toFixed(2), fm=v=>v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    const ease=t=>t<0?0:t>1?1:t*t*(3-2*t);
+    function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+    function newTrade(){return {fills:[],limit:null,tp:null,done:false,pnl:0,exitIdx:0,firstIdx:0}}
+    tr=newTrade();
+    const qtyOf=()=>tr.fills.reduce((a,f)=>a+f.qty,0);
+    const avgOf=()=>tr.fills.reduce((a,f)=>a+f.price*f.qty,0)/qtyOf();
+    const livePnl=p=>tr.fills.reduce((a,f)=>a+(f.price-p)*f.qty*PT,0);
+
+    function resize(){const r=cv.getBoundingClientRect();dpr=Math.min(window.devicePixelRatio||1,2);W=r.width;H=r.height;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+
+    function gen(prevC){
+      const nz=()=>rnd()-.5; let c;
+      if(k<=8) c=prevC+nz()*15+(base-prevC)*.18;
+      else if(k<=21) c=prevC+DR[k]+nz()*3;
+      else c=prevC+nz()*13-2;
+      let h=Math.max(prevC,c)+1.5+rnd()*(rnd()<.2?11:4), l=Math.min(prevC,c)-1.5-rnd()*(rnd()<.2?11:4);
+      if(tr.limit&&k>=11&&k<=14&&k===(tr.fills.length===1?11:14)){c=Math.max(c,tr.limit.price+3);h=Math.max(h,c+2)}
+      if(k===21&&tr.tp!=null&&!tr.done){c=Math.min(c,tr.tp-5);l=Math.min(l,c-3)}
+      return {o:prevC,c:c,h:Math.max(h,c,prevC),l:Math.min(l,c,prevC)};
+    }
+    function logLine(txt,cls){
+      clock+=4+Math.floor(rnd()*6);
+      const hh=String(Math.floor(clock/3600)).padStart(2,'0'),mm=String(Math.floor(clock%3600/60)).padStart(2,'0'),ss=String(clock%60).padStart(2,'0');
+      const li=document.createElement('li'); if(cls) li.className=cls;
+      li.innerHTML='<time>'+hh+':'+mm+':'+ss+'</time>'+txt;
+      elLog.appendChild(li); while(elLog.children.length>4) elLog.removeChild(elLog.firstChild);
+    }
+    function setUI(con,state,pnl){
+      const key=con+'|'+state+'|'+Math.round(pnl*100); if(key===lastKey) return; lastKey=key;
+      elCon.textContent=con; elState.textContent=state;
+      elPnl.textContent=(pnl>0?'+':pnl<0?'-':'')+'$'+fm(Math.abs(pnl));
+      elPnl.className=pnl>0?'pos':pnl<0?'neg':'';
+    }
+    function startCycle(){
+      k=0; tr=newTrade(); const last=candles.length?candles[candles.length-1].c:27640;
+      base=last; rnd=mulberry((Math.random()*1e9)|0); cur=gen(last);
+      setUI(0,'Buscando señal',0); logLine('Escaneando contexto · método 2+2');
+    }
+    function init(){
+      candles=[]; markers=[]; n=0; yInit=false; elLog.innerHTML='';
+      let p=27640; rnd=mulberry((Math.random()*1e9)|0);
+      for(let i=0;i<VIS-1;i++){const c=p+(rnd()-.5)*15+(27640-p)*.18,h=Math.max(p,c)+1.5+rnd()*4,l=Math.min(p,c)-1.5-rnd()*4;candles.push({o:p,c:c,h:h,l:l});p=c;n++}
+      base=p; k=0; tr=newTrade(); cur=gen(p); stepStart=performance.now(); lastKey='';
+      setUI(0,'Buscando señal',0); logLine('Escaneando contexto · método 2+2');
+    }
+
+    function disp(p){
+      const e=ease(p), c=cur.o+(cur.c-cur.o)*e;
+      return {o:cur.o,c:c,
+        h:Math.max(cur.o,c,cur.o+(cur.h-cur.o)*Math.min(1,e*1.6)),
+        l:Math.min(cur.o,c,cur.o+(cur.l-cur.o)*Math.min(1,e*1.6))};
+    }
+    function fill(price,qty){
+      tr.fills.push({idx:n,price:price,qty:qty}); if(tr.fills.length===1) tr.firstIdx=n;
+      markers.push({idx:n,price:price,type:'sell',label:'Vender '+qty+' @ '+f2(price)});
+    }
+
+    function update(now){
+      let p=(now-stepStart)/STEP;
+      if(p>=1){
+        candles.push({o:cur.o,c:cur.c,h:cur.h,l:cur.l}); n++; k++; stepStart=now; p=0;
+        if(candles.length>90){candles.shift(); markers=markers.filter(m=>m.idx>=n-90)}
+        if(k>=CYCLE){startCycle()} else {cur=gen(cur.c)}
+      }
+      const d=disp(p), price=d.c;
+      if(!tr.done){
+        if(k===10&&p>.45&&tr.fills.length===0){
+          const e=q(price); fill(e,QTY); tr.limit={price:q(e+GAP),qty:QTY};
+          logLine('Señal 2+2 confirmada → <b>VENDE ×'+QTY+'</b>','go');
+          logLine('Límite ×'+QTY+' colocado @ '+f2(tr.limit.price));
+        } else if(tr.limit&&d.h>=tr.limit.price){
+          const e=tr.limit.price; fill(e,tr.limit.qty);
+          const tot=qtyOf();
+          if(tr.fills.length<3){tr.limit={price:q(e+GAP),qty:QTY}; logLine('Límite ejecutado → <b>+'+QTY+'</b> · total '+tot,'go')}
+          else {tr.limit=null; tr.tp=q(avgOf()-TPD); logLine('Límite ejecutado → <b>+'+QTY+'</b> · total '+tot,'go'); logLine('Objetivo fijado @ '+f2(tr.tp))}
+        } else if(tr.tp!=null&&d.l<=tr.tp){
+          tr.done=true; tr.pnl=livePnl(tr.tp); tr.exitIdx=n; flash=1;
+          markers.push({idx:n,price:tr.tp,type:'buy',label:'Comprar '+qtyOf()+' @ '+f2(tr.tp)});
+          logLine('Objetivo → cierra '+qtyOf()+' contratos · <b>+$'+fm(tr.pnl)+'</b>','ok');
+        }
+      }
+      const tot=qtyOf();
+      if(tr.done) setUI(0,'Take profit alcanzado ✓',tr.pnl);
+      else if(tot) setUI(tot,tr.limit?'Promediando con límite':'Posición abierta',livePnl(price));
+      return {p:p,d:d};
+    }
+
+    function rr(x,y,w,h,r){ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,r);else ctx.rect(x,y,w,h)}
+    function tag(x,y,txt,bg,fg,align){ // etiqueta rectangular (estilo plataforma)
+      ctx.font='600 10px Arial,Helvetica,sans-serif'; const w=ctx.measureText(txt).width+10,h=16,x0=align==='r'?x-w:x;
+      ctx.fillStyle=bg; rr(x0,y-h/2,w,h,2); ctx.fill(); ctx.fillStyle=fg; ctx.textBaseline='middle'; ctx.textAlign='left'; ctx.fillText(txt,x0+5,y+.5); return w;
+    }
+    function arrow(x,y,dir,col){ // punta en (x,y); dir 1 = apunta abajo, -1 = apunta arriba
+      ctx.fillStyle=col; ctx.beginPath();
+      ctx.moveTo(x,y); ctx.lineTo(x-6,y-dir*8); ctx.lineTo(x-2.2,y-dir*8); ctx.lineTo(x-2.2,y-dir*17); ctx.lineTo(x+2.2,y-dir*17); ctx.lineTo(x+2.2,y-dir*8); ctx.lineTo(x+6,y-dir*8); ctx.closePath(); ctx.fill();
+    }
+
+    function draw(st){
+      const axisW=62, pr=W-axisW, cw=pr/VIS, top=40, bot=42, d=st.d, p=st.p;
+      ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H);
+      let lo=d.l, hi=d.h; const first=Math.max(0,candles.length-VIS);
+      for(let i=first;i<candles.length;i++){lo=Math.min(lo,candles[i].l);hi=Math.max(hi,candles[i].h)}
+      if(tr.limit) hi=Math.max(hi,tr.limit.price+4);
+      if(tr.tp!=null&&!tr.done) lo=Math.min(lo,tr.tp-4);
+      const pad=(hi-lo)*.06+2; lo-=pad; hi+=pad;
+      if(!yInit){yMin=lo;yMax=hi;yInit=true} else {yMin+=(lo-yMin)*.07;yMax+=(hi-yMax)*.07}
+      const Y=v=>top+(yMax-v)/(yMax-yMin)*(H-top-bot);
+      const slide=ease(Math.min(1,p*3));
+      const X=i=>pr-cw/2-(n-i)*cw+(1-slide)*cw;
+      // marca de agua + cuadrícula
+      ctx.fillStyle='rgba(20,24,34,.055)'; ctx.font='800 44px Arial,Helvetica,sans-serif'; ctx.textAlign='left'; ctx.textBaseline='middle'; ctx.fillText('MNQ 12-26',10,H-70);
+      const stp=(yMax-yMin)>260?50:20;
+      ctx.lineWidth=1; ctx.strokeStyle='#E8EAEF';
+      for(let i=Math.floor(first);i<=n;i++){ if(i%6===0){const x=Math.round(X(i)+cw/2)+.5; ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke()} }
+      ctx.font='400 10px Arial,Helvetica,sans-serif'; ctx.textAlign='left';
+      const gStart=Math.ceil(yMin/stp)*stp, labels=[];
+      for(let v=gStart; v<=yMax; v+=stp){const y=Math.round(Y(v))+.5; ctx.strokeStyle='#E8EAEF'; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(pr,y); ctx.stroke(); labels.push([v,y])}
+      // velas
+      const all=candles.slice(first).map((c,j)=>({c:c,i:first+j})).concat([{c:d,i:n}]);
+      all.forEach(o=>{
+        const x=X(o.i), c=o.c, up=c.c>=c.o, col=up?GUP:RDN, bw=Math.max(6,cw*.78);
+        if(x<-cw||x>pr+cw) return;
+        ctx.globalAlpha=.9; ctx.strokeStyle=col; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(Math.round(x)+.5,Y(c.h)); ctx.lineTo(Math.round(x)+.5,Y(c.l)); ctx.stroke(); ctx.globalAlpha=1;
+        const y1=Y(Math.max(c.o,c.c)), y2=Y(Math.min(c.o,c.c)), bh=Math.max(2,y2-y1);
+        ctx.fillStyle=col; ctx.fillRect(x-bw/2,y1,bw,bh); ctx.strokeStyle=up?'#1F8E35':'#A80E15'; ctx.lineWidth=1; ctx.strokeRect(x-bw/2+.5,y1+.5,bw-1,Math.max(1,bh-1));
+      });
+      // órdenes y posición
+      const tot=qtyOf(), xs=tr.fills.length?Math.max(0,X(tr.firstIdx)-cw*.4):0;
+      if(tr.limit){
+        const y=Y(tr.limit.price); ctx.strokeStyle=CYAN; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(12,y); ctx.lineTo(pr,y); ctx.stroke();
+        tag(8,y,tr.limit.qty+'  Vender LMT',CYAN,'#04252A');
+        ctx.fillStyle='#fff'; ctx.strokeStyle='#111'; ctx.lineWidth=1.4; ctx.fillRect(pr-26,y-8,16,16); ctx.strokeRect(pr-26,y-8,16,16);
+        ctx.beginPath(); ctx.moveTo(pr-22,y-4); ctx.lineTo(pr-14,y+4); ctx.moveTo(pr-14,y-4); ctx.lineTo(pr-22,y+4); ctx.stroke();
+        labels.push(['tag',y,f2(tr.limit.price),CYAN,'#04252A']);
+      }
+      if(tot&&!tr.done){
+        const avg=avgOf(), ya=Y(avg); ctx.strokeStyle=TAN; ctx.lineWidth=1.6; ctx.beginPath(); ctx.moveTo(xs,ya); ctx.lineTo(pr,ya); ctx.stroke();
+        labels.push(['tag',ya,f2(q(avg)),TAN,'#2B2418']);
+        const pn=livePnl(d.c), ptxt=(pn<0?'(':'')+'$'+fm(Math.abs(pn))+(pn<0?')':'');
+        ctx.font='600 11px Arial,Helvetica,sans-serif'; const tw=ctx.measureText(ptxt).width+14, qw=22, bx=Math.max(4,xs-tw-qw-4);
+        ctx.fillStyle='#0B0D12'; rr(bx,ya-9,tw,18,2); ctx.fill(); ctx.fillStyle=pn<0?'#FF5560':'#37E27A'; ctx.textAlign='left'; ctx.textBaseline='middle'; ctx.fillText(ptxt,bx+7,ya+.5);
+        ctx.fillStyle=pn<0?'#C4252D':DGRN; ctx.fillRect(bx+tw,ya-9,qw,18); ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.fillText(String(tot),bx+tw+qw/2,ya+.5); ctx.textAlign='left';
+      }
+      if(tr.tp!=null&&!tr.done){
+        const yt=Y(tr.tp); ctx.strokeStyle=DGRN; ctx.lineWidth=1.6; ctx.setLineDash([6,4]); ctx.beginPath(); ctx.moveTo(xs,yt); ctx.lineTo(pr,yt); ctx.stroke(); ctx.setLineDash([]);
+        labels.push(['tag',yt,f2(tr.tp),DGRN,'#fff']);
+      }
+      // líneas punteadas de cada entrada a la salida
+      if(tr.done){
+        ctx.strokeStyle=DGRN; ctx.lineWidth=1.4; ctx.setLineDash([2,3]);
+        tr.fills.forEach(fl=>{ctx.beginPath(); ctx.moveTo(X(fl.idx),Y(fl.price)); ctx.lineTo(X(tr.exitIdx),Y(tr.tp)); ctx.stroke()}); ctx.setLineDash([]);
+      }
+      // marcadores
+      markers.forEach(m=>{
+        const x=X(m.idx), y=Y(m.price); if(x<-60) return;
+        ctx.font='400 9.5px Arial,Helvetica,sans-serif'; ctx.fillStyle='#4A4F59'; ctx.textAlign='center'; ctx.textBaseline='middle';
+        const tw=ctx.measureText(m.label).width, lx=Math.min(pr-tw/2-2,Math.max(tw/2+2,x));
+        if(m.type==='sell'){ arrow(x,y-3,1,PURP); ctx.fillText(m.label,lx,y-27) }
+        else { arrow(x,y+3,-1,BLUE); ctx.fillText(m.label,lx,y+29) }
+      });
+      // eje de precios
+      ctx.fillStyle='#fff'; ctx.fillRect(pr,0,axisW,H); ctx.strokeStyle='#CBD0D8'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(pr+.5,0); ctx.lineTo(pr+.5,H); ctx.stroke();
+      ctx.font='400 10px Arial,Helvetica,sans-serif'; ctx.fillStyle='#3E434D'; ctx.textAlign='left'; ctx.textBaseline='middle';
+      labels.forEach(l=>{ if(l[0]!=='tag') ctx.fillText(f2(l[0]),pr+8,l[1]) });
+      labels.forEach(l=>{ if(l[0]==='tag') tag(pr+2,l[1],l[2],l[3],l[4]) });
+      tag(pr+2,Y(d.c),f2(q(d.c)),'#0B0D12','#fff');
+      // destello al cerrar
+      if(flash>0){
+        ctx.fillStyle='rgba(46,230,160,'+(.12*flash)+')'; ctx.fillRect(0,0,pr,H);
+        const m=markers[markers.length-1]; if(m&&m.type==='buy'){ctx.strokeStyle='rgba(27,158,60,'+(.8*flash)+')';ctx.lineWidth=2;ctx.beginPath();ctx.arc(X(m.idx),Y(m.price),6+(1-flash)*38,0,7);ctx.stroke()}
+        flash=Math.max(0,flash-.02);
+      }
+    }
+
+    let running=false, raf=0, pausedAt=0, vis=true;
+    function loop(now){ if(!running) return; if(!W||W<50) resize(); draw(update(now)); raf=requestAnimationFrame(loop) }
+    function start(){ if(running) return; running=true; stepStart=performance.now()-pausedAt; raf=requestAnimationFrame(loop) }
+    function stop(){ if(!running) return; running=false; cancelAnimationFrame(raf); pausedAt=performance.now()-stepStart }
+
+    resize(); init();
+    function fit(){ if(Math.abs(cv.getBoundingClientRect().width-W)>1 || !W) resize() }
+    window.addEventListener('resize',fit);
+    if('ResizeObserver' in window) new ResizeObserver(fit).observe(cv);
+    draw(update(performance.now()));
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){
+      let t=stepStart; for(let i=0;i<(24*STEP)/16;i++){t+=16;update(t)} draw(update(t+1)); flash=0; draw(update(t+2));
+    } else {
+      start();
+      if('IntersectionObserver' in window) new IntersectionObserver(es=>{vis=es[0].isIntersecting; vis&&!document.hidden?start():stop()},{threshold:0}).observe(cv);
+      document.addEventListener('visibilitychange',()=>{document.hidden?stop():(vis&&start())});
+    }
+  })();
+
+  // ---- entrada suave de secciones ----
+  (function(){
+    if(!('IntersectionObserver' in window)) return;
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const els=document.querySelectorAll('.section:not(.bot), .event, .terminal, .steps, footer');
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
+    els.forEach(el=>{el.classList.add('rv');io.observe(el)});
+  })();
+
   // Registro -> valida y redirige al grupo de WhatsApp
   document.getElementById('regForm').addEventListener('submit', function(e){
     e.preventDefault();
@@ -416,7 +776,7 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
     // Evento de Meta Pixel: cliente potencial (registro válido a la clase)
     if(typeof fbq === 'function'){
       fbq('track', 'Lead', {
-        content_name: 'Clase gratis - Cómo retirar tus primeros $1.000',
+        content_name: 'Clase gratis - Bot + método 2+2 (26 nov)',
         content_category: 'masterclass'
       });
     }
@@ -431,12 +791,17 @@ src="https://www.facebook.com/tr?id=2548949145543206&ev=PageView&noscript=1"
           nombre: nombre,
           correo: correo,
           whatsapp: paisCod + whatsapp,
+          clase: 'Bot + metodo 2+2 - 26 nov',
           fecha: new Date().toISOString()
         })
       }).catch(()=>{});
     }
 
-    window.location.href = WHATSAPP_LINK;
+    if(WHATSAPP_LINK){
+      window.location.href = WHATSAPP_LINK;
+    } else {
+      this.innerHTML = '<p style="color:var(--ink);font-weight:600;font-size:16px;margin-top:18px">¡Listo, quedaste registrado!</p><p class="sub" style="margin-top:8px">Pronto te compartiremos el acceso a la clase.</p>';
+    }
   });
 </script>
 </body>
